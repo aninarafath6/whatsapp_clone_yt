@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp/constants/app_colors.dart';
+import 'package:whatsapp/views/screens/calls_screen/calls_screen.dart';
+import 'package:whatsapp/views/screens/camara_screen/camara_screen.dart';
+import 'package:whatsapp/views/screens/chat_screen/chat_scareen.dart';
+import 'package:whatsapp/views/screens/home_screen/widgets/custom_appbar.dart';
+import 'package:whatsapp/views/screens/status_screen/status_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,82 +11,23 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: 1,
       length: 4,
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              toolbarHeight: 49,
-              pinned: true,
-              // floating: true,
-              expandedHeight: 110,
-              backgroundColor: AppColors.primarySwatch,
-              title: const Text(
-                'WhatsApp',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              centerTitle: false,
-              actions: [
-                IconButton(
-                  splashRadius: 20,
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                ),
-                IconButton(
-                  splashRadius: 20,
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert),
-                ),
-              ],
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(0),
-                child: TabBar(
-                  indicatorWeight: 3,
-                  indicatorColor: Colors.white,
-                  tabs: [
-                    const Tab(
-                      icon: Icon(Icons.photo_camera),
-                    ),
-                    Tab(
-                      child: Text(
-                        'chats'.toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'status'.toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'calls'.toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-              return Container(
-                  color: Colors.deepPurple[200],
-                  height: 50,
-                  child: Text(index.toString()));
-            }))
-          ],
+        body: NestedScrollView(
+          headerSliverBuilder: (context, isScrolled) {
+            return [
+              const CustomAppBar(),
+            ];
+          },
+          body: const TabBarView(
+            children: [
+              CameraScreen(),
+              ChatScreen(),
+              StatusScreen(),
+              CallsScreen(),
+            ],
+          ),
         ),
       ),
     );

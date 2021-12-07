@@ -1,54 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/constants/app_colors.dart';
+import 'package:whatsapp/model/chat_model.dart';
 
 class UserTile extends StatelessWidget {
+  final Chat userChat;
   const UserTile({
+    required this.userChat,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
-        radius: 25,
+      leading: CircleAvatar(
+        radius: 28,
         backgroundColor: AppColors.primarySwatch,
-        backgroundImage: NetworkImage(
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Elon_Musk_Royal_Society_%28crop1%29.jpg/440px-Elon_Musk_Royal_Society_%28crop1%29.jpg'),
+        backgroundImage: NetworkImage(userChat.avatar),
       ),
-      title: const Text(
-        'Anin Arafath',
-        style: TextStyle(
+      title: Text(
+        userChat.name,
+        style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w600,
           fontSize: 17,
         ),
-      ),
-      subtitle: const Text('hi, helo'),
+      ), 
+      subtitle: Text(userChat.lastMessage),
       trailing: Column(
-        children: const [
+        children: [
           Text(
-            '10:00 am',
+            userChat.time,
             style: TextStyle(
-              color: Colors.green,
+              color: userChat.count > 0 ? Colors.green : Colors.grey,
               fontSize: 12,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          CircleAvatar(
-            radius: 13,
-            backgroundColor: Colors.green,
-            child: Center(
-              child: Text(
-                '4',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ),
+          userChat.count > 0
+              ? CircleAvatar(
+                  radius: 13,
+                  backgroundColor: Colors.green,
+                  child: Center(
+                    child: Text(
+                      userChat.count.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );

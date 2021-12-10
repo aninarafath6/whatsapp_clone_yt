@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/constants/app_colors.dart';
 import 'package:whatsapp/model/chat_model.dart';
+import 'package:whatsapp/views/screens/individual_chat_screen/individual_chat_screen.dart';
 
 class UserTile extends StatelessWidget {
   final Chat userChat;
@@ -12,6 +13,13 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => IndividualChatScreen(data: userChat),
+          ),
+        );
+      },
       leading: CircleAvatar(
         radius: 28,
         backgroundColor: AppColors.primarySwatch,
@@ -24,7 +32,7 @@ class UserTile extends StatelessWidget {
           fontWeight: FontWeight.w600,
           fontSize: 17,
         ),
-      ), 
+      ),
       subtitle: Text(userChat.lastMessage),
       trailing: Column(
         children: [

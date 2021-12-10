@@ -22,3 +22,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/bg-chat-tile-light_04fcacde539c58cca6745483d4858c52.png
